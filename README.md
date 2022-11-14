@@ -4,7 +4,7 @@ It can count all words, but after indexing.
 It can search any word you want to search and very fast(if you have indexed database)           
 
 # How to use?
-You download code or release(add link) and launch. Than you enter path to dictionary and choose options. Dictionary must be only in ```.txt``` type and the dictionary should be without special symbols. For example, you can check ```data.txt``` (add link)
+You download code or release(add link) and launch. Than you enter path to dictionary and choose options. Dictionary must be only in ```.txt``` type and the dictionary should be without special symbols. For example, you can check ```data.txt``` (add link). In result you will get, if you choose indexing, indexed ```database.db```
 
 # Table of capacity
 
