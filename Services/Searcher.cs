@@ -20,6 +20,28 @@ namespace IAS.Services
         }
 
 
+        public void SearchV2(string word, IEnumerable<string> data)
+        {
+            foreach (var item in data)
+            {
+                Console.WriteLine("==============");
+                int pos = 0;
+                while (true)
+                {
+                    pos = item.IndexOf(word, pos);
+                    if (pos >= 0)
+                    {
+                        Console.WriteLine(PrettyMatchV2(item, pos));
+                    }
+                    else
+                        break;
+                    pos++;
+                }
+            }
+
+        }
+
+
         public string PrettyMatchV2(string text, int pos)
         {
             var start = Math.Max(0, pos - 50);

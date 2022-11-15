@@ -47,7 +47,6 @@ namespace IAS.Services
                             WordId = wordId
                         });
 
-                        if (wordId % 1000 == Math.Truncate(Convert.ToDouble(wordId % 1000)))
                             UI.UI.MessageAboutIndexing(wordId);
 
                         _context.SaveChanges();

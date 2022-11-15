@@ -47,7 +47,6 @@ namespace IAS.Services
                             Content = doc[1]
                         });
 
-                        if (id % 1000 == Math.Truncate(Convert.ToDouble(id % 1000)))
                             UI.UI.MessageAboutLoadData(id);
 
                         _context.SaveChanges();
