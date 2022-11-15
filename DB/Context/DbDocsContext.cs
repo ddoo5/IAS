@@ -16,7 +16,7 @@ namespace IAS.DB.Context
         public DbDocsContext(DbContextOptions options)
         {
             //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
 
