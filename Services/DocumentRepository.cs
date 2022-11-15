@@ -3,6 +3,7 @@ using System.Reflection.Metadata;
 using IAS.DB.Context;
 using IAS.Models;
 using IAS.Services.Interfaces;
+using IAS.UI;
 
 namespace IAS.Services
 {
@@ -45,6 +46,9 @@ namespace IAS.Services
                             Id = id,
                             Content = doc[1]
                         });
+
+                        if (id % 1000 == Math.Truncate(Convert.ToDouble(id % 1000)))
+                            UI.UI.MessageAboutLoadData(id);
 
                         _context.SaveChanges();
                     }

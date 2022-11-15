@@ -10,10 +10,12 @@ namespace IAS.Services
         private readonly DbDocsContext _context;
         private readonly Selector _lexer = new();
 
+
         public Indexing(DbDocsContext context = null)
         {
             _context = context;
         }
+
 
         public void BuildIndex()
         {
@@ -44,6 +46,10 @@ namespace IAS.Services
                             DocumentId = document.Id,
                             WordId = wordId
                         });
+
+                        if (wordId % 1000 == Math.Truncate(Convert.ToDouble(wordId % 1000)))
+                            UI.UI.MessageAboutIndexing(wordId);
+
                         _context.SaveChanges();
                     }
                 }
