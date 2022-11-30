@@ -5,9 +5,9 @@ namespace IAS.Services
 {
 	public class DocumentExtractor
     {
-        public static IEnumerable<string> DocumentsSet()
+        public static IEnumerable<string> DocumentsSet(string path)
         {
-            return ReadDocuments(AppContext.BaseDirectory + "data.txt");
+            return ReadDocuments(path);
         }
 
 

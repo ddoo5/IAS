@@ -91,6 +91,46 @@ namespace IAS.UI
 
             Console.CursorVisible = true;
         }
+
+
+        public static void Launched()
+        {
+            Console.CursorVisible = false;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.WriteLine($"Started");
+
+            Console.ResetColor();
+
+            Console.CursorVisible = true;
+        }
+
+
+        public static void ExceptionWriter(Exception ex)
+        {
+            Console.CursorVisible = false;
+
+            Console.Write($"\n\n You have exception, let's check it: \n");
+
+            Console.Write("Error message: ");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.Write($"{ex.Message}\n");
+
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write("Help link: ");
+
+            Console.ResetColor();
+
+            Console.Write($"{ex.HelpLink} \n\n");
+
+            Console.CursorVisible = true;
+        }
     }
 }
 

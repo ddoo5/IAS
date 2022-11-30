@@ -12,21 +12,27 @@ using Microsoft.Extensions.Hosting;
 UI.ConfigureConsole();
 UI.Greeting();
 
+//todo add ui
+Console.WriteLine("Enter path to dictionary(remember, only .txt!)");
+string path = Console.ReadLine(); //todo add protection
+
 while (true)
 {
     try
     {
-        Starer(args);
+        Starter(args, path);
     }
     catch (Exception a)
     {
-        Console.WriteLine(a); //todo add ui
+        UI.ExceptionWriter(a);
     }
 }
 
 
-static void Starer(string[] args)
+static void Starter(string[] args, string path)
 {
+    Searcher searcher = new();
+
     var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
@@ -41,28 +47,63 @@ static void Starer(string[] args)
 
     switch (variants)
     {
-        case 1:
-            Console.WriteLine("Started"); //todo add ui
+        case 1:  //load document
+            UI.Launched();
 
-            host.Services.GetRequiredService<IDocumentRepository>().LoadDocuments();
+            host.Services.GetRequiredService<IDocumentRepository>().LoadDocuments(path);
             break;
-        case 2:
-            Console.WriteLine("Started"); //todo add ui
+        case 2:   //indexing
+            UI.Launched();
 
             Indexing fullTextIndexV1 = new Indexing(host.Services.GetService<DbDocsContext>());
-            fullTextIndexV1.BuildIndex();  //indexing
+            fullTextIndexV1.BuildIndex();
             break;
         case 3:
+            UI.Launched();
+
 
             break;
         case 4:
+            UI.Launched();
 
+            var documentsSet = DocumentExtractor.DocumentsSet(path).Take(10000).ToArray();
+
+            Console.WriteLine("Enter word: ");
+            string word4 = Console.ReadLine();
+
+            searcher.Search(word4, documentsSet);
             break;
         case 5:
+            UI.Launched();
+
+            //todo add ui
+            Console.WriteLine("Enter word: ");
+            string word5 = Console.ReadLine();
+
+            //todo add waiter
+
+            IndexedSearchMethod(path, word5);
 
             break;
         default:
             UI.WrongChoose();
             break;
     }
+}
+
+
+static void IndexedSearchMethod(string path, string word)
+{
+    string[] documentsSet = DocumentExtractor.DocumentsSet(path).Take(10000).ToArray();
+    IndexedSearcher _index = new();
+
+    foreach (var item in documentsSet)
+    {
+        _index.AddStringToIndex(item);
+    }
+
+    var result = _index.Search(word);
+
+    //todo add ui: 'word: suck \n count: 1020'
+    Console.WriteLine(result.Count());
 }
