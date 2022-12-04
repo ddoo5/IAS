@@ -8,7 +8,7 @@ You download code or release(add link) and launch. Than you enter path to dictio
 
 # Table of capacity
 
-|
+|===
 |               Method|         Job|               Toolchain|  LaunchCount|    Query|                 Mean|              Error|              StdDev|               Median|                  Min|                  Max|  Ratio|  MannWhitney(10%)|     Gen0|  Allocated|  Alloc Ratio
 |         SimpleSearch|  Job-XHUFBW|                 Default|            3|        a|  1,693,028,648.18 ns|  16,261,101.773 ns|   35,003,737.055 ns|  1,678,734,876.50 ns|  1,647,195,543.00 ns|  1,809,081,606.00 ns|  1.000|              Base|        -|      864 B|         1.00
 |  FullTextIndexSearch|  Job-XHUFBW|                 Default|            3|        a|         22,352.27 ns|         307.787 ns|          688.411 ns|         22,145.15 ns|         21,504.31 ns|         23,806.16 ns|  0.000|            Faster|  12.6343|    39800 B|        46.06
