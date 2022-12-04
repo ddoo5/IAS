@@ -31,9 +31,9 @@ namespace IAS.Services
 
         #region IDocumentRepository Implementation
 
-        public void LoadDocuments()
+        public void LoadDocuments(string path)
         {
-            using (var streamReader = new StreamReader(AppContext.BaseDirectory + "data.txt"))
+            using (var streamReader = new StreamReader(path))
             {
                 while (!streamReader.EndOfStream)
                 {

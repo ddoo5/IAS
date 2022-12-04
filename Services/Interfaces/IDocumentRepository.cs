@@ -3,7 +3,7 @@ namespace IAS.Services.Interfaces
 {
 	public interface IDocumentRepository
 	{
-        void LoadDocuments();
+        void LoadDocuments(string path);
     }
 }
 

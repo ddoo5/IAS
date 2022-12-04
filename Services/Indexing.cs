@@ -11,7 +11,7 @@ namespace IAS.Services
         private readonly Selector _lexer = new();
 
 
-        public Indexing(DbDocsContext context = null)
+        public Indexing(DbDocsContext context) //== null
         {
             _context = context;
         }
