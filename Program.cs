@@ -1,6 +1,9 @@
-﻿using IAS.DB.Context;
+﻿using BenchmarkDotNet.Running;
+using IAS;
+using IAS.DB.Context;
 using IAS.Services;
 using IAS.Services.Interfaces;
+using IAS.Tests;
 using IAS.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,15 +15,40 @@ using Microsoft.Extensions.Hosting;
 UI.ConfigureConsole();
 UI.Greeting();
 
-//todo add ui
-Console.WriteLine("Enter path to dictionary(remember, only .txt!)");
-string path = Console.ReadLine(); //todo add protection
-
+//starter method with UI
 while (true)
 {
     try
     {
-        Starter(args, path);
+        UI.ExamplePath();
+
+        Console.CursorVisible = true;
+
+        string path = Console.ReadLine();
+
+        Console.CursorVisible = false;
+
+        if (String.IsNullOrWhiteSpace(path))
+            throw new FileNotFoundException("Your way to file is wrong\n " +
+                $"Your enter: It's null ^_^ ");
+
+        File.GetAttributes(path);
+
+        Thread launchTask = new(new ThreadStart(UI.Launcher));
+
+        launchTask.Start();
+
+        while (true)
+        {
+            try
+            {
+                Starter(args, path);
+            }
+            catch (Exception a)
+            {
+                UI.ExceptionWriter(a);
+            }
+        }
     }
     catch (Exception a)
     {
@@ -29,10 +57,12 @@ while (true)
 }
 
 
+/// <summary>
+/// Main method
+/// </summary>
 static void Starter(string[] args, string path)
 {
-    Searcher searcher = new();
-
+    //create connection with database
     var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
@@ -41,6 +71,18 @@ static void Starter(string[] args, string path)
                     services.AddScoped<IDocumentRepository, DocumentRepository>();
                 })
                 .Build();
+
+    //load dictionary
+    string[] documentsSet = DocumentExtractor.DocumentsSet(path).Take(10000).ToArray();
+
+    IndexedSearcher _index = new();
+    Searcher searcher = new();
+
+    foreach (var item in documentsSet)
+    {
+        _index.AddStringToIndex(item);
+    }
+
 
     UI.ChooseVariants();
     int variants = Convert.ToInt32(Console.ReadLine());
@@ -58,52 +100,34 @@ static void Starter(string[] args, string path)
             Indexing fullTextIndexV1 = new Indexing(host.Services.GetService<DbDocsContext>());
             fullTextIndexV1.BuildIndex();
             break;
-        case 3:
+        case 3:  //tests
             UI.Launched();
 
+            if (UI.GreetingInTests())
+            { 
+                BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, new BenchmarkDotNet.Configs.DebugInProcessConfig());
+                BenchmarkRunner.Run<Tests>();
+            }
 
+            Task.WaitAll();
             break;
-        case 4:
+        case 4:  //deafault searcher
             UI.Launched();
 
-            var documentsSet = DocumentExtractor.DocumentsSet(path).Take(10000).ToArray();
-
-            Console.WriteLine("Enter word: ");
-            string word4 = Console.ReadLine();
-
-            searcher.Search(word4, documentsSet);
+            searcher.Search(UI.AskWord(), documentsSet);
             break;
-        case 5:
+        case 5: //indexed searcher
             UI.Launched();
 
-            //todo add ui
-            Console.WriteLine("Enter word: ");
-            string word5 = Console.ReadLine();
+            string askedWord = UI.AskWord();
 
-            //todo add waiter
+            var result = _index.Search(askedWord);
 
-            IndexedSearchMethod(path, word5);
+            Console.WriteLine($"Word: {askedWord}    Total indexed count: {result.Count()}\n");
 
             break;
         default:
             UI.WrongChoose();
             break;
     }
-}
-
-
-static void IndexedSearchMethod(string path, string word)
-{
-    string[] documentsSet = DocumentExtractor.DocumentsSet(path).Take(10000).ToArray();
-    IndexedSearcher _index = new();
-
-    foreach (var item in documentsSet)
-    {
-        _index.AddStringToIndex(item);
-    }
-
-    var result = _index.Search(word);
-
-    //todo add ui: 'word: suck \n count: 1020'
-    Console.WriteLine(result.Count());
 }
