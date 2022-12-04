@@ -15,8 +15,8 @@ Intel Core i5-1038NG7 CPU 2.00GHz, 1 CPU, 8 logical and 4 physical cores
 
 IterationCount=20  WarmupCount=5
 
-[options="header"]
-|===
+
+|
 |               Method|         Job|               Toolchain|  LaunchCount|    Query|                 Mean|              Error|              StdDev|               Median|                  Min|                  Max|  Ratio|  MannWhitney(10%)|     Gen0|  Allocated|  Alloc Ratio
 |         SimpleSearch|  Job-XHUFBW|                 Default|            3|        a|  1,693,028,648.18 ns|  16,261,101.773 ns|   35,003,737.055 ns|  1,678,734,876.50 ns|  1,647,195,543.00 ns|  1,809,081,606.00 ns|  1.000|              Base|        -|      864 B|         1.00
 |  FullTextIndexSearch|  Job-XHUFBW|                 Default|            3|        a|         22,352.27 ns|         307.787 ns|          688.411 ns|         22,145.15 ns|         21,504.31 ns|         23,806.16 ns|  0.000|            Faster|  12.6343|    39800 B|        46.06
@@ -50,5 +50,5 @@ IterationCount=20  WarmupCount=5
 |  FullTextIndexSearch|  Job-XHUFBW|                 Default|            3|     word|          2,022.59 ns|          22.292 ns|           49.860 ns|          2,024.01 ns|          1,942.44 ns|          2,120.98 ns|  0.000|            Faster|   1.0872|     3416 B|         2.44
 |         SimpleSearch|  Job-KYOOPO|  InProcessEmitToolchain|      Default|     word|  2,248,933,230.24 ns|   2,118,985.879 ns|    2,176,042.489 ns|  2,248,748,756.00 ns|  2,246,193,965.00 ns|  2,254,977,881.00 ns|  1.000|              Base|        -|     1776 B|         1.00
 |  FullTextIndexSearch|  Job-KYOOPO|  InProcessEmitToolchain|      Default|     word|          2,098.62 ns|           7.364 ns|            8.185 ns|          2,098.71 ns|          2,081.80 ns|          2,114.40 ns|  0.000|            Faster|   1.0872|     3416 B|         1.92
-|===
+|
 
