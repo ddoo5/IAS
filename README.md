@@ -8,14 +8,7 @@ You download code or release(add link) and launch. Than you enter path to dictio
 
 # Table of capacity
 
-```BenchmarkDotNet=v0.13.2, OS=macOS 13.0.1 (22A400) [Darwin 22.1.0]
-Intel Core i5-1038NG7 CPU 2.00GHz, 1 CPU, 8 logical and 4 physical cores
-.NET SDK=7.0.100
-
-IterationCount=20  WarmupCount=5``` 
-
-[options="header"]
-|===
+|
 |               Method|         Job|               Toolchain|  LaunchCount|    Query|                 Mean|              Error|              StdDev|               Median|                  Min|                  Max|  Ratio|  MannWhitney(10%)|     Gen0|  Allocated|  Alloc Ratio
 |         SimpleSearch|  Job-XHUFBW|                 Default|            3|        a|  1,693,028,648.18 ns|  16,261,101.773 ns|   35,003,737.055 ns|  1,678,734,876.50 ns|  1,647,195,543.00 ns|  1,809,081,606.00 ns|  1.000|              Base|        -|      864 B|         1.00
 |  FullTextIndexSearch|  Job-XHUFBW|                 Default|            3|        a|         22,352.27 ns|         307.787 ns|          688.411 ns|         22,145.15 ns|         21,504.31 ns|         23,806.16 ns|  0.000|            Faster|  12.6343|    39800 B|        46.06
