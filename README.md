@@ -8,6 +8,12 @@ You download code or release(add link) and launch. Than you enter path to dictio
 
 # Table of capacity
 
+```BenchmarkDotNet=v0.13.2, OS=macOS 13.0.1 (22A400) [Darwin 22.1.0]
+Intel Core i5-1038NG7 CPU 2.00GHz, 1 CPU, 8 logical and 4 physical cores
+.NET SDK=7.0.100
+
+IterationCount=20  WarmupCount=5
+
 [options="header"]
 |===
 |               Method|         Job|               Toolchain|  LaunchCount|    Query|                 Mean|              Error|              StdDev|               Median|                  Min|                  Max|  Ratio|  MannWhitney(10%)|     Gen0|  Allocated|  Alloc Ratio
